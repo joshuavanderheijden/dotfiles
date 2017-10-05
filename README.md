@@ -1,6 +1,6 @@
 # Dotfiles
 
-## Insctructions
+## Instructions
 
 ### Install symlinks
 
