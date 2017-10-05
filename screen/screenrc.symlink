@@ -1,0 +1,9 @@
+# Remap prefix
+escape ^^^
+
+# Remove some dangerous key bindings.
+bind k
+bind ^k
+
+# Make the dangerous key bindings better.
+bind 'K' kill
