@@ -178,6 +178,8 @@
 	user = joshuavanderheijden
 [merge]
 	tool = vimdiff
+[push]
+	default = simple
 [user]
 	name = Joshua van der Heijden
 	email = joshuavdheijden@gmail.com
