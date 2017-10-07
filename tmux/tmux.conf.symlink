@@ -38,10 +38,12 @@ bind -n M-Down select-pane -D
 # Don't rename windows automatically, rename window names using the , key
 set-option -g allow-rename off
 
-
 ######################
 ### DESIGN CHANGES ###
 ######################
+
+# Tmux colors
+set -g default-terminal "screen-256color"
 
 # panes
 set -g pane-border-fg black
@@ -85,8 +87,6 @@ set-option -g visual-bell off
 set-option -g visual-silence off
 set-window-option -g monitor-activity off
 set-option -g bell-action none
-
-set -g default-terminal "screen-256color"
 
 # The modes {
 setw -g clock-mode-colour colour135

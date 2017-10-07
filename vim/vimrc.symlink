@@ -1,0 +1,74 @@
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Options
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Show the corresponding object
+set showmatch
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"# Indendation
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs
+set smarttab
+
+" Round indent to multiple of 'shiftwidth'.
+"set shiftround
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
+
+" Automatically indent when opening a new line, smartindent might indent
+set autoindent
+set smartindent
+
+" Linebreak on 500 characters
+"set linebreak
+"set tw=500
+
+" Wrap lines
+"set wrap
+
+" Change the timeout timings when matching to mappings / keys
+"set timeoutlen=300
+"set ttimeoutlen=10
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Cursor line
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Higlight Cursor line
+set cursorline
+
+" Display line numbers
+set number relativenumber
+
+hi LineNr cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=#282822 guibg=#7F7F7F
+hi CursorLine cterm=NONE ctermbg=235 ctermfg=NONE guibg=NONE guifg=NONE
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Colors and Fonts
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Enable syntax highlighting
+syntax enable
+set t_Co=256
+
+" Fix the colorscheme as soon as the plugins have been installed by plug.vim (prevents warning at first startup)
+"try
+"    colorscheme gruvbox
+"    set background=dark
+"catch /^Vim\%((\a\+)\)\=:E185/
+"endtry
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+"set ff=unix,dos,mac

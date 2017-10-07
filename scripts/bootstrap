@@ -20,53 +20,61 @@ link_file() {
 	local overwrite= backup= skip=
 	local action=
 
-	# Regular file / directory / symbolic
+	# Regular file or directory or symbolic link
 	if [ -f "$dst" ] || [ -d "$dst" ] || [ -L "$dst" ]
 	then
 		if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
 		then
-			
-			user "File already exists: $dst ($(basename "$src")), what do you want to do?\
-	 		\n\t [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
-			read -n 1 action
 
-			case "$action" in
-			    o )
-				overwrite=true;;
-			    O )
-				overwrite_all=true;;
-			    b )
-				backup=true;;
-			    B )
-				backup_all=true;;
-			    s )
-				skip=true;;
-			    S )
-				skip_all=true;;
-			    * )
-				;;
-			esac
-		fi
+			local currentSrc="$(readlink $dst)"
 
-		overwrite=${overwrite:-$overwrite_all}
-		backup=${backup:-$backup_all}
-		skip=${skip:-$skip_all}
+			# When the current source is already equeal to the new source then skip it.
+			if [ "$currentSrc" == "$src" ]
+			then
+				skip=true;
+			else
+				user "File already exists: $dst ($(basename "$src")), what do you want to do?\
+				\n\t [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+				read -n 1 action
 
-		if [ "$overwrite" == "true" ]
-		then
-		    rm -rf "$dst"
-		    success "\e[31mRemoved\e[0m $dst"
-		fi
+				case "$action" in
+				    o )
+					overwrite=true;;
+				    O )
+					overwrite_all=true;;
+				    b )
+					backup=true;;
+				    B )
+					backup_all=true;;
+				    s )
+					skip=true;;
+				    S )
+					skip_all=true;;
+				    * )
+					;;
+				esac
+			fi
 
-		if [ "$backup" == "true" ]
-		then
-		    mv "$dst" "${dst}.backup"
-		    success "\e[95mMoved\e[0m $dst to ${dst}.backup"
-		fi
+			overwrite=${overwrite:-$overwrite_all}
+			backup=${backup:-$backup_all}
+			skip=${skip:-$skip_all}
 
-		if [ "$skip" == "true" ]
-		then
-		    success "\e[33mSkipped\e[0m $src"
+			if [ "$overwrite" == "true" ]
+			then
+			    rm -rf "$dst"
+			    success "\e[31mRemoved\e[0m $dst"
+			fi
+
+			if [ "$backup" == "true" ]
+			then
+			    mv "$dst" "${dst}.backup"
+			    success "\e[95mMoved\e[0m $dst to ${dst}.backup"
+			fi
+
+			if [ "$skip" == "true" ]
+			then
+			    success "\e[33mSkipped\e[0m $src"
+			fi
 		fi
 	fi
 		
