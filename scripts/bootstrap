@@ -9,6 +9,8 @@ IFS=$'\n\t'
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES="$(dirname "$DIR")"
 
+source "$DIR/../scripts/_diagnostics.sh"
+
 # check for root permissions
 if [ "$(whoami)" == "root" ] ; then
     fail "Please execute without root permissions!"
@@ -95,24 +97,6 @@ install_dotfiles() {
 		dst="$HOME/.$(basename "${src%.*}")"
 		link_file "$src" "$dst" 
 	done
-}
-
-info() {
-	printf "\r [ .. ] $1\n"
-}
-
-success() {
-	printf "\r [ \033[00;32mOK\033[0m ] $1\n"
-}
-
-user () {
-	printf "\r [ ?? ] $1\n"
-}
-
-fail () {
-	printf "\r [ \033[0;31mFAIL\033[0m ] $1\n"
-	echo ''
-	exit
 }
 
 install_dotfiles
