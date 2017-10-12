@@ -1,17 +1,20 @@
-######################
-###  KEY CHANGES   ###
-######################
+######################################################################
+# KEY CHANGES
+######################################################################
 
 # Remap prefix from 'C-b' to 'C-a'
 unbind C-b
 set-option -g prefix C-a
 bind-key C-a send-prefix
 
+# New window
+bind c new-window -c '#{pane_current_path}' 
+
 # Split panes horizontal or vertical
-bind \ split-window -h
-bind | split-window -h
-bind - split-window -v
-bind _ split-window -v
+bind \ split-window -h -c '#{pane_current_path}'
+bind | split-window -h -c '#{pane_current_path}'
+bind - split-window -v -c '#{pane_current_path}'
+bind _ split-window -v -c '#{pane_current_path}'
 unbind '"'
 unbind %
 
@@ -35,10 +38,26 @@ bind -n M-right select-pane -R
 bind -n M-up select-pane -U
 bind -n M-Down select-pane -D
 
+# Smart pane switching with awareness of vim splits.
+# Source: https://github.com/christoomey/vim-tmux-navigator
+is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
+    | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+bind-key -n C-h if-shell "$is_vim" "send-keys C-h"  "select-pane -L"
+bind-key -n C-j if-shell "$is_vim" "send-keys C-j"  "select-pane -D"
+bind-key -n C-k if-shell "$is_vim" "send-keys C-k"  "select-pane -U"
+bind-key -n C-l if-shell "$is_vim" "send-keys C-l"  "select-pane -R"
+bind-key -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
 
-######################
-###  SET OPTIONS   ###
-######################
+# Mouse mode
+bind m set -g mouse on \; display 'Mouse: ON'
+bind M set -g mouse off \; display 'Mouse: OFF'
+
+######################################################################
+# SET OPTIONS
+######################################################################
+
+# Addres vim mode switching delay
+set -s escape-time 0
 
 # Don't rename windows automatically, rename window names using the , key
 set-option -g allow-rename off
@@ -46,17 +65,34 @@ set-option -g allow-rename off
 # History 
 set -g history-limit 10000
 
-######################
-### DESIGN CHANGES ###
-######################
+# Message display
+set -g display-time 3000
+
+# Use VI keybindings for tmux commandline:
+set -g status-keys vi
+
+# Copy mode
+setw -g mode-keys vi
+
+# Mouse support
+set -g mouse off
+
+# Set first window to index 1 to map to the keyboard layout
+set-option -g base-index 1
+set-window-option -g pane-base-index 1
+set -g renumber-windows on
+
+######################################################################
+# DESIGN CHANGES 
+######################################################################
 
 # Set the default TERM
-set -g default-terminal "screen-256color"
+set -g default-terminal "screen"
 
 # Update the TERM variable of terminal emulator when creating a new session or attaching a existing session
 set -g update-environment 'DISPLAY SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY TERM'
 # Determine if we should enable 256-color support
-if "[[ $TERM} =~ 256color || ${TERM} == fbterm ]]" 'set -g default-terminal screen-256-color'
+if "[[ $TERM} =~ 256color || ${TERM} == fbterm ]]" 'set -g default-terminal screen-256color'
 
 set -g message-attr bold
 set -g message-bg colour166
@@ -66,15 +102,7 @@ set -g message-fg colour232
 
 setw -g mode-attr bold
 setw -g mode-fg colour196
-setw -g mode-fg colour0
 setw -g mode-bg colour238
-setw -g mode-bg colour6
-
-#set-option -g visual-activity off
-#set-option -g visual-bell off
-#set-option -g visual-silence off
-#set-window-option -g monitor-activity off
-#set-option -g bell-action none
 
 set -g pane-border-bg colour235
 set -g pane-border-fg colour238
@@ -90,17 +118,17 @@ set -g status-left-length 20
 set -g status-right-attr none
 set -g status-right-length 50
 set -g status-position bottom
+set -g status-bg colour236
 
-set -g status-left  '#[fg=colour16,bg=colour254,bold] #S #[fg=colour254,bg=colour234,nobold] '
+set -g status-left  '#[fg=colour16,bg=colour254,bold] #S #[fg=colour253,bg=colour236] '
 set -g status-right '#[fg=colour233,bg=colour238,bold] %V #[fg=colour233,bg=colour241,bold] %d/%m/%Y #[fg=colour233,bg=colour245,bold] %H:%M:%S '
-setw -g window-status-format "#[fg=colour253,bg=colour236]#I:#W "
-setw -g window-status-current-format "#[fg=colour117,bg=colour31] #I:#[fg=colour231,bold]#W "
+setw -g window-status-format "#[fg=colour253,bg=colour236]#I:#W"
+setw -g window-status-current-format "#[fg=colour231,bg=colour31] #I:#[fg=colour231,bold]#W "
 
 setw -g window-status-attr none
 setw -g window-status-activity-attr none
-setw -g window-status-activity-bg
-setw -g window-status-activity-fg
-setw -g window-status-acvitity-separator ""
+setw -g window-status-activity-bg colour237
+setw -g window-status-activity-fg colour109
 setw -g window-status-bell-attr bold
 setw -g window-status-bell-fg colour255
 setw -g window-status-bell-bg colour1
