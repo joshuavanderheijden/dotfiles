@@ -5,13 +5,14 @@ Prefix = `Ctl-B`
 ## Session
 
 | Key | Description |
-|:---:|:----------------------------------------------|
+|:---:|:---|
 | d   | Dettach the current client |
 | $   | Rename the current session |
 
 ## Window
 
 | Key | Description |
+|:---:|:---|
 | c   | Create a new window |
 | &   | Kill the current window |
 | n   | Change to the next window |
@@ -21,7 +22,7 @@ Prefix = `Ctl-B`
 ## Pane
 
 | Key | Description |
-|:---:|:----------------------------------------------|
+|:---:|:---|
 | o   | Select the next pane in the current window |
 | x   | Kill the current pane |
 | h   | Resize pane left (1p) |
@@ -36,15 +37,15 @@ Prefix = `Ctl-B`
 ## Split
 
 | Key | Description |
-|:---:|:----------------------------------------------|
+|:---:|:---|
 | \   | Split window horizontal |
-| |   | Split window horizontal |
+|``|``| Split window horizontal |
 | -   | Split window vertical |
 | _   | Split window vertical |
 
 # Mouse
 
 | Key | Description |
-|:---:|:----------------------------------------------|
+|:---:|:---|
 | m   | Turn mouse mode ON |
 | M   | Turn mouse mode OFF |
