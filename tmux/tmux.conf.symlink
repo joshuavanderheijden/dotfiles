@@ -88,14 +88,15 @@ set -g renumber-windows on
 
 # Theme colors
 THEME=colour31
-BACK=colour234
+BACK=colour232
 
 # Set the default TERM
-set -g default-terminal "xterm-256color"
-#set -g default-terminal "screen-256color"
+#set -g default-terminal "xterm-256color"
+set -g default-terminal "screen-256color"
 
 # Enable RGB colour if running xterm(1) - TrueColors
-set-option -sa terminal-overrides "xterm*:Tc"
+#set-option -sa terminal-overrides "xterm*:Tc"
+set-option -sa terminal-overrides "screen*:Tc"
 
 # Window inactive/active style
 set -g window-style bg=${BACK}
