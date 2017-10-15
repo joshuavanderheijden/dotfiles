@@ -65,7 +65,7 @@ set-option -g allow-rename off
 # History 
 set -g history-limit 10000
 
-# Message display
+# Message display in miliseconds
 set -g display-time 3000
 
 # Use VI keybindings for tmux commandline:
@@ -86,49 +86,75 @@ set -g renumber-windows on
 # DESIGN CHANGES 
 ######################################################################
 
+# Theme colors
+THEME=colour31
+BACK=colour234
+
 # Set the default TERM
-set -g default-terminal "screen"
+set -g default-terminal "xterm-256color"
+#set -g default-terminal "screen-256color"
 
-# Update the TERM variable of terminal emulator when creating a new session or attaching a existing session
-set -g update-environment 'DISPLAY SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY TERM'
-# Determine if we should enable 256-color support
-if "[[ $TERM} =~ 256color || ${TERM} == fbterm ]]" 'set -g default-terminal screen-256color'
+# Enable RGB colour if running xterm(1) - TrueColors
+set-option -sa terminal-overrides "xterm*:Tc"
 
+# Window inactive/active style
+set -g window-style bg=${BACK}
+set -g window-active-style bg=${BACK}
+
+# Message
 set -g message-attr bold
-set -g message-bg colour166
+set -g message-bg ${THEME} 
+set -g message-fg colour232
 set -g message-command-fg blue
 set -g message-command-bg black
-set -g message-fg colour232
 
+# Mode
 setw -g mode-attr bold
-setw -g mode-fg colour196
-setw -g mode-bg colour238
+setw -g mode-fg white
+setw -g mode-bg ${THEME}
 
-set -g pane-border-bg colour235
-set -g pane-border-fg colour238
-set -g pane-active-border-bg colour236
-set -g pane-active-border-fg colour117
+# Pane
+set -g pane-border-fg colour236
+set -g pane-border-bg ${BACK}
+set -g pane-active-border-fg ${THEME}
+set -g pane-active-border-bg ${BACK}
 
-set -g status on
-set -g status-interval 1
-set -g status-justify left 
-set -g status-attr none
-set -g status-left-attr none
-set -g status-left-length 20
-set -g status-right-attr none
-set -g status-right-length 50
-set -g status-position bottom
-set -g status-bg colour236
-
-set -g status-left  '#[fg=colour16,bg=colour254,bold] #S #[fg=colour253,bg=colour236] '
-set -g status-right '#[fg=colour233,bg=colour238,bold] %V #[fg=colour233,bg=colour241,bold] %d/%m/%Y #[fg=colour233,bg=colour245,bold] %H:%M:%S '
-setw -g window-status-format "#[fg=colour253,bg=colour236]#I:#W"
-setw -g window-status-current-format "#[fg=colour231,bg=colour31] #I:#[fg=colour231,bold]#W "
-
-setw -g window-status-attr none
+# Activity
 setw -g window-status-activity-attr none
 setw -g window-status-activity-bg colour237
 setw -g window-status-activity-fg colour109
+
+# Bell
 setw -g window-status-bell-attr bold
 setw -g window-status-bell-fg colour255
 setw -g window-status-bell-bg colour1
+
+# Status bar - Settings
+set -g status on
+set -g status-interval 1
+set -g status-justify centre
+set -g status-position bottom
+set -g status-bg colour236
+
+# Status bar - Centre
+setw -g window-status-attr none
+setw -g window-status-fg colour255
+setw -g window-status-bg colour236
+setw -g window-status-format "#I:#W"
+setw -g window-status-current-attr bold
+setw -g window-status-current-fg colour255
+setw -g window-status-current-bg ${THEME}
+setw -g window-status-current-format " #I:#W "
+
+# Status bar - Left
+set -g status-left-length 20
+set -g status-left-attr bold
+set -g status-left-fg colour232
+set -g status-left-bg colour255
+set -g status-left ' #S '
+
+# Status bar - Right
+set -g status-right-length 50
+set -g status-right-attr bold
+set -g status-right-fg colour232
+set -g status-right '#[bg=colour238] %V #[bg=colour241] %d/%m/%Y #[bg=colour245] %H:%M:%S '
