@@ -1,6 +1,6 @@
 # TMUX
 
-Mapped prefix to `Ctrl-B`.
+Mapped prefix to `Ctrl-a`.
 
 ## Session
 
