@@ -1,6 +1,6 @@
 # TMUX
 
-Prefix = `Ctl-B`
+Mapped prefix to `Ctrl-B`.
 
 ## Session
 
@@ -39,7 +39,7 @@ Prefix = `Ctl-B`
 | Key | Description |
 |:---:|:---|
 | \   | Split window horizontal |
-|``|``| Split window horizontal |
+|\|   | Split window horizontal |
 | -   | Split window vertical |
 | _   | Split window vertical |
 
