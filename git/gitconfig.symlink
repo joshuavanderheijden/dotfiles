@@ -29,6 +29,8 @@
 	cpa = cherry-pick --abort
 	cpc = cherry-pick --continue
 	#############
+	ctags = !.git/hooks/tags
+	#############
 	d = diff
 	dc = diff --cached
 	dl = difftool
@@ -176,11 +178,13 @@
 	tool = vimdiff
 [github]
 	user = joshuavanderheijden
+[init]
+    templatedir =~/dotfiles/git/git-template
 [merge]
 	tool = vimdiff
 [push]
 	default = simple
 [user]
-	name = Joshua van der Heijden
 	email = joshuavdheijden@gmail.com
+	name = Joshua van der Heijden
 
