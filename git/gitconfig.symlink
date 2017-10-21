@@ -29,7 +29,7 @@
 	cpa = cherry-pick --abort
 	cpc = cherry-pick --continue
 	#############
-	ctags = !.git/hooks/tags
+	ctags = !.git/hooks/ctags
 	#############
 	d = diff
 	dc = diff --cached
