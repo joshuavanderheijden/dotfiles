@@ -1,13 +1,30 @@
-" BASIC SETUP
+" ____   ____.__  .__                                            .___
+" \   \ /   /|__| |__| _____ _____________  _______  __ ____   __| _/
+"  \   Y   / |  | |  |/     \\____ \_  __ \/  _ \  \/ // __ \ / __ |
+"   \     /  |  | |  |  Y Y  \  |_> >  | \(  <_> )   /\  ___// /_/ |
+"    \___/   |__| |__|__|_|  /   __/|__|   \____/ \_/  \___  >____ |
+"                          \/|__|                          \/     \/
 
-" Enter the current millenium
+" This must be first, because it changes other options as side effect
 set nocompatible
 
 " Enable syntax and plugins (for netrw)
 syntax enable
-filetype plugin on
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+filetype plugin on
+filetype plugin indent on
+
+if has('autocmd')
+    autocmd filetype python set expandtab
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FINDING FILES
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Search down into subfolders
 " Provides tab completion for all file related tasks
@@ -22,6 +39,123 @@ set wildmenu
 
 " THINGS TO CONSIDER:
 " - :b lets you autocomplete any open buffer
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Options
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" It hides buffers instead of closing them. This means that you
+" can have unwritten changes to a file and open a newe file using
+" :e, without being force to write or undoe your changes first.
+set hidden
+set showmatch       " Show the corresponding object.
+set expandtab       " Use spaces instead of tabs.
+set smarttab        " Insert tabs on the start of a line according to shiftwith, not tabstop.
+set shiftround      " Round indent to multiple of 'shiftwidth'.
+set shiftwidth=4    " Number of spaces to user for autoindenting.
+set tabstop=4       " Number of spaces is a tab.
+set autoindent      " Automatically indent when opening a new line.
+set copyindent      " Copy the previous indentation on autoindenting.
+set smartindent
+set hlsearch        " Highlight search terms.
+set ignorecase      " Ignore case when searching.
+set smartcase       " Ignore case when search pattern is all lowercase.
+set incsearch       " Show search matches when you type.
+
+set history=1000    " Remeber more commands and search history.
+set undolevels=1000 " Remeber more levels of undo.
+set wildignore=*.swp
+set title
+
+" Linebreak on 500 characters
+set linebreak
+set tw=500
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Status line
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set statusline=                           " Clear the statusline
+set statusline+=%<\                       " cut at start
+set statusline+=%2*[%n%H%M%R%W]%*\        " flags and buf no
+set statusline+=%-40f\                    " path
+set statusline+=%=%1*%y%*%*\              " file type
+set statusline+=%10((%l,%c)%)\            " line and column
+set statusline+=%P                        " percentage of file
+
+" Always display the statusline
+set laststatus=2
+
+" Hightlight the statusline
+hi statusline cterm=none ctermfg=none ctermbg=black
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Cursor line
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Higlight Cursor line
+set cursorline
+
+" Highlight matching parenthesis
+hi MatchParen cterm=bold ctermfg=red ctermbg=none
+
+" Display line numbers
+set number relativenumber
+
+hi LineNr cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=#282822 guibg=#7F7F7F
+hi CursorLineNr cterm=bold ctermfg=white ctermbg=NONE gui=NONE guifg=#282822 guibg=#7F7F7F
+hi CursorLine cterm=NONE ctermbg=236 ctermfg=NONE guibg=NONE guifg=NONE
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Colors and Fonts
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Enable syntax highlighting
+syntax enable
+set background=dark
+set t_Co=256
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Set list unprintable charachters
+set listchars=tab:\|\ ,trail:~,extends:>,precedes:<,nbsp:•,eol:¶
+
+hi NonText ctermfg=244 guifg=grey
+hi SpecialKey ctermfg=244 guifg=grey
+
+" Highlight Mode Message
+hi ModeMsg ctermfg=31 ctermbg=none
+
+" Use Unix as the standard file type
+"set ff=unix,dos,mac
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Custom mapping
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Change the leader key from \ to ,
+let mapleader=","
+
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+" Clear hightlighted searches
+nmap <silent> <leader>/ :nohlsearch<CR>
+
+" Switch to paste mode
+set pastetoggle=<F2>
+
+" Toggle list (display unprintable characters)
+nnoremap <F3> : set list!<CR>
+
+" This lets you use w!! after you opened the file already, but forgot sudo.
+cmap w!! w !sudo tee % >/dev/null
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" THINGS TO DO
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " TAG JUMPING:
 
@@ -86,82 +220,4 @@ set wildmenu
 " - :cc# to jump to error by number
 " - :cn and :cp to navigate forward and back
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Options
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Show the corresponding object
-set showmatch
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"# Indendation
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Use spaces instead of tabs
-set expandtab
-
-" Be smart when using tabs
-set smarttab
-
-" Round indent to multiple of 'shiftwidth'.
-"set shiftround
-
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
-
-" Automatically indent when opening a new line, smartindent might indent
-set autoindent
-set smartindent
-
-" Linebreak on 500 characters
-"set linebreak
-"set tw=500
-
-" Wrap lines
-"set wrap
-
-" Change the timeout timings when matching to mappings / keys
-"set timeoutlen=300
-"set ttimeoutlen=10
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Cursor line
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Higlight Cursor line
-set cursorline
-
-" Display line numbers
-set number relativenumber
-
-hi LineNr cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=#282822 guibg=#7F7F7F
-hi CursorLineNr cterm=bold ctermfg=white ctermbg=NONE gui=NONE guifg=#282822 guibg=#7F7F7F
-hi CursorLine cterm=NONE ctermbg=236 ctermfg=NONE guibg=NONE guifg=NONE
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Colors and Fonts
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Enable syntax highlighting
-syntax enable
-set background=dark
-set t_Co=256
-
-" Fix the colorscheme as soon as the plugins have been installed by plug.vim (prevents warning at first startup)
-"try
-"    colorscheme gruvbox
-"    set background=dark
-"catch /^Vim\%((\a\+)\)\=:E185/
-"endtry
-
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
-" Use Unix as the standard file type
-"set ff=unix,dos,mac
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Custom mapping
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
