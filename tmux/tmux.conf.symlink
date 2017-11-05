@@ -88,7 +88,7 @@ set -g renumber-windows on
 
 # Theme colors
 THEME=colour31
-BACK=colour232
+BACK=colour233
 
 # Set the default TERM
 #set -g default-terminal "xterm-256color"
