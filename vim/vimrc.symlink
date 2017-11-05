@@ -5,15 +5,26 @@
 "    \___/   |__| |__|__|_|  /   __/|__|   \____/ \_/  \___  >____ |
 "                          \/|__|                          \/     \/
 
-" This must be first, because it changes other options as side effect
-set nocompatible
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   Shortcuts:
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   _PLUGINS
+"   _FILES
+"   _OPTIONS
+"   _CUSTOMMAPPINGS
+"   _STATUSLINE
+"   _CURSORLINE
+"   _COLORSFONTS
+"   _THINGSTODO
 
-" Enable syntax and plugins (for netrw)
-syntax enable
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" _PLUGINS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugins
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Filetype must be 'on' before setting it 'off' otherwise it exits
+" with a bad status and breaks git commit.
+filetype on
+filetype off
 
 """
 """ Auto-install vim-plug
@@ -26,21 +37,37 @@ endif
 call plug#begin('~/.vim/plugged')
 
 """
+""" Syntax: Additional syntaxes that can be used
+"""
+Plug 'tpope/vim-git', { 'for': 'git' }
+
+"""
 """ Git: Plugins for git usage
-""'
+"""
 " Fugitive: Git from within Vim
 Plug 'tpope/vim-fugitive'
 
-filetype plugin on
+"""
+""" Statusline: Plugins for statusline
+"""
+" Lightline: A light and configurable status/tabline plugin for Vim
+Plug 'itchyny/lightline.vim'
+
+call plug#end()
+
+" Enable syntax and plugins (for netrw)
+syntax enable
+
+" Enable detection, plugins and indent
 filetype plugin indent on
 
 if has('autocmd')
     autocmd filetype python set expandtab
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" FINDING FILES
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" _FILES
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Search down into subfolders
 " Provides tab completion for all file related tasks
@@ -48,68 +75,89 @@ set path+=**
 
 " Display all matching files when we tab complete
 set wildmenu
+set wildmode=list:longest,full
+"set wildmode=list:longest,full
+
+" FILE BROWSING:
+
+" Tweaks for browsing
+let g:netrw_banner=0        " disable annoying banner
+"let g:netrw_browse_split=4  " open in prior window
+"let g:netrw_altv=1          " open splits to the right
+"let g:netrw_listsytle=3     " tree view
+"let g:netrw_list_hide= netrw_gitignore#Hide()
+"let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 " NOW WE CAN:
-" - Hit tab to :find by partial match
-" - Use * to make it fuzzy
+" - :edit a folder to open a file browser
+" - <CR>/v/r to open in an h-split/v-split/tab
+" - check |netrw-browse-maps| for more mappings
 
-" THINGS TO CONSIDER:
-" - :b lets you autocomplete any open buffer
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Options
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" _OPTIONS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " It hides buffers instead of closing them. This means that you
 " can have unwritten changes to a file and open a newe file using
 " :e, without being force to write or undoe your changes first.
 set hidden
-set showmatch       " Show the corresponding object.
-set expandtab       " Use spaces instead of tabs.
-set smarttab        " Insert tabs on the start of a line according to shiftwith, not tabstop.
-set shiftround      " Round indent to multiple of 'shiftwidth'.
-set shiftwidth=4    " Number of spaces to user for autoindenting.
-set tabstop=4       " Number of spaces is a tab.
-set autoindent      " Automatically indent when opening a new line.
-set copyindent      " Copy the previous indentation on autoindenting.
+set showmatch           " Show the corresponding object.
+set expandtab           " Use spaces instead of tabs.
+set smarttab            " Insert tabs on the start of a line according to shiftwith, not tabstop.
+set shiftround          " Round indent to multiple of 'shiftwidth'.
+set shiftwidth=4        " Number of spaces to user for autoindenting.
+set tabstop=4           " Number of spaces is a tab.
+set autoindent          " Automatically indent when opening a new line.
+set copyindent          " Copy the previous indentation on autoindenting.
 set smartindent
-set hlsearch        " Highlight search terms.
-set ignorecase      " Ignore case when searching.
-set smartcase       " Ignore case when search pattern is all lowercase.
-set incsearch       " Show search matches when you type.
-
-set history=1000    " Remeber more commands and search history.
-set undolevels=1000 " Remeber more levels of undo.
+set hlsearch            " Highlight search terms.
+set ignorecase          " Ignore case when searching.
+set smartcase           " Ignore case when search pattern is all lowercase.
+set incsearch           " Show search matches when you type.
+set noshowmode          " Don't show the mode information.
+set history=1000        " Remeber more commands and search history.
+set undolevels=1000     " Remeber more levels of undo.
 set wildignore=*.swp
+set wildignorecase
 set title
-
-" Linebreak on 500 characters
 set linebreak
-set tw=500
+set tw=500              " Linebreak on 500 characters
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Status line
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set showtabline=1       " Show tabline when there are atleast two tab pages
 
-set statusline=                           " Clear the statusline
-set statusline+=%<\                       " cut at start
-set statusline+=%2*[%n%H%M%R%W]%*\        " flags and buf no
-set statusline+=%-40f\                    " path
-set statusline+=%=%1*%y%*%*\              " file type
-set statusline+=%10((%l,%c)%)\            " line and column
-set statusline+=%P                        " percentage of file
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" _STATUSLINE
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Always display the statusline
 set laststatus=2
 
-" Hightlight the statusline
-hi statusline cterm=none ctermfg=none ctermbg=black
+let g:lightline = {
+    \ 'colorscheme': 'wombat',
+    \ 'active': {
+    \   'left': [   [ 'mode', 'paste' ],
+    \               [ 'buffer', 'gitbranch', 'readonly' ], [ 'filename', 'modified' ] ]
+    \ },
+    \ 'component_function': {
+    \   'buffer': 'GetBuffer',
+    \   'gitbranch': 'fugitive#head',
+    \   'filename' : 'LightLineFilename'
+    \ },
+    \ }
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Cursor line
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! GetBuffer()
+    return bufnr('%')
+endfunction
 
-" Higlight Cursor line
+function! LightLineFilename()
+    return expand('%:p') !=# '' ? expand('%:p') : '[No Name]'
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" _CURSORLINE
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Turn on CursorLine
 set cursorline
 
 " Highlight matching parenthesis
@@ -118,13 +166,23 @@ hi MatchParen cterm=bold ctermfg=red ctermbg=none
 " Display line numbers
 set number relativenumber
 
-hi LineNr cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=#282822 guibg=#7F7F7F
-hi CursorLineNr cterm=bold ctermfg=white ctermbg=NONE gui=NONE guifg=#282822 guibg=#7F7F7F
-hi CursorLine cterm=NONE ctermbg=236 ctermfg=NONE guibg=NONE guifg=NONE
+" Show CursorLine only in the selected window
+augroup CursorLine
+    au!
+    au VimEnter * setlocal cursorline
+    au WinEnter * setlocal cursorline
+    au BufWinEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
+augroup END
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Colors and Fonts
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Higlight Cursorline
+hi LineNr           cterm=NONE  ctermfg=DarkGrey  ctermbg=black   gui=NONE    guifg=#282822   guibg=#7F7F7F
+hi CursorLineNr     cterm=bold  ctermfg=white     ctermbg=black   gui=NONE    guifg=#282822   guibg=#7F7F7F
+hi CursorLine       cterm=NONE  ctermfg=none      ctermbg=236     gui=none    guibg=NONE      guifg=NONE
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" _COLORSFONTS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Enable syntax highlighting
 syntax enable
@@ -137,41 +195,44 @@ set encoding=utf8
 " Set list unprintable charachters
 set listchars=tab:\|\ ,trail:~,extends:>,precedes:<,nbsp:•,eol:¶
 
-hi NonText ctermfg=244 guifg=grey
-hi SpecialKey ctermfg=244 guifg=grey
+hi NonText          cterm=none  ctermfg=244     ctermbg=none
+hi SpecialKey       cterm=none  ctermfg=244     ctermbg=none
 
-" Highlight Mode Message
-hi ModeMsg ctermfg=31 ctermbg=none
-
-" Use Unix as the standard file type
-"set ff=unix,dos,mac
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Custom mapping
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" _CUSTOMMAPPINGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Change the leader key from \ to ,
 let mapleader=","
 
-" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
-
+" Open local-directory browser on the current file's directory
+nnoremap <silent> <leader>x :Texplore<CR>
+" Show buffers
+nnoremap <silent> <leader>b :buffers<CR>
+" Delete current buffer
+nnoremap <silent> <leader>d :bdelete<CR>
+" Edit the vimrc file
+nnoremap <silent> <leader>v :edit $MYVIMRC<CR>
+" Reload the vimrc file
+nnoremap <silent> <leader>s :source $MYVIMRC<CR>
 " Clear hightlighted searches
-nmap <silent> <leader>/ :nohlsearch<CR>
+nnoremap <silent> <leader>/ :nohlsearch<CR>
+" Wildcard search
+nnoremap <leader>e :edit **/*
+" Highlight all tags
+nnoremap <silent> <leader><F10> :source tags.vim<CR>
+" Toggle list (display unprintable characters)
+nnoremap <F3> : set list!<CR>
 
 " Switch to paste mode
 set pastetoggle=<F2>
 
-" Toggle list (display unprintable characters)
-nnoremap <F3> : set list!<CR>
-
 " This lets you use w!! after you opened the file already, but forgot sudo.
 cmap w!! w !sudo tee % >/dev/null
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" THINGS TO DO
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" _THINGSTODO
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " TAG JUMPING:
 
@@ -198,21 +259,6 @@ cmap w!! w !sudo tee % >/dev/null
 
 " NOW WE CAN:
 " - Use ^n and ^p to go back and forth in the suggestion list
-
-" FILE BROWSING:
-
-" Tweaks for browsing
-"let g:netrw_banner=0        " disable annoying banner
-"let g:netrw_browse_split=4  " open in prior window
-"let g:netrw_altv=1          " open splits to the right
-"let g:netrw_listsytle=3     " tree view
-"let g:netrw_list_hide= netrw_gitignore#Hide()
-"let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
-
-" NOW WE CAN:
-" - :edit a folder to open a file browser
-" - <CR>/v/r to open in an h-split/v-split/tab
-" - check |netrw-browse-maps| for more mappings
 
 " SNIPPETS:
 
