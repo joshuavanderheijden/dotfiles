@@ -158,4 +158,4 @@ set -g status-left ' #S '
 set -g status-right-length 50
 set -g status-right-attr bold
 set -g status-right-fg colour232
-set -g status-right '#[bg=colour238] %V #[bg=colour241] %d/%m/%Y #[bg=colour245] %H:%M:%S '
+set -g status-right '#[bg=colour238] %V #[bg=colour241] %Y-%m-%d #[bg=colour245] %H:%M:%S '
