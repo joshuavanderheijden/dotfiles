@@ -5,30 +5,15 @@
 "    \___/   |__| |__|__|_|  /   __/|__|   \____/ \_/  \___  >____ |
 "                          \/|__|                          \/     \/
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   Shortcuts:
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   _PLUGINS
-"   _FILES
-"   _OPTIONS
-"   _CUSTOMMAPPINGS
-"   _STATUSLINE
-"   _CURSORLINE
-"   _COLORSFONTS
-"   _THINGSTODO
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" _PLUGINS
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PLUGINS {{{
 
 " Filetype must be 'on' before setting it 'off' otherwise it exits
 " with a bad status and breaks git commit.
 filetype on
 filetype off
 
-"""
-""" Auto-install vim-plug
-"""
+" AUTO_INSTALL VIM_PLUG:
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall
@@ -36,21 +21,13 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-"""
-""" Syntax: Additional syntaxes that can be used
-"""
+" SYNTAX: ADDITIONAL SYNTAXES THAT CAN BE USED
 Plug 'tpope/vim-git', { 'for': 'git' }
 
-"""
-""" Git: Plugins for git usage
-"""
-" Fugitive: Git from within Vim
+" FUGITIVE: GIT FROM WITHIN VIM
 Plug 'tpope/vim-fugitive'
 
-"""
-""" Statusline: Plugins for statusline
-"""
-" Lightline: A light and configurable status/tabline plugin for Vim
+" LIGHTLINE: A LIGHT AND CONFIGURABLE STATUS AND TABLINE PLUGIN FOR VIM
 Plug 'itchyny/lightline.vim'
 
 call plug#end()
@@ -65,9 +42,14 @@ if has('autocmd')
     autocmd filetype python set expandtab
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" _FILES
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" END }}}
+" FOLD {{{
+
+" Set fold maker, string (default: "{{{,}}}")
+set foldmethod=marker
+
+" END }}}
+" FILES {{{
 
 " Search down into subfolders
 " Provides tab completion for all file related tasks
@@ -76,7 +58,6 @@ set path+=**
 " Display all matching files when we tab complete
 set wildmenu
 set wildmode=list:longest,full
-"set wildmode=list:longest,full
 
 " FILE BROWSING:
 
@@ -93,9 +74,8 @@ let g:netrw_banner=0        " disable annoying banner
 " - <CR>/v/r to open in an h-split/v-split/tab
 " - check |netrw-browse-maps| for more mappings
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" _OPTIONS
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" END }}}
+" OPTIONS {{{
 
 " It hides buffers instead of closing them. This means that you
 " can have unwritten changes to a file and open a newe file using
@@ -124,10 +104,16 @@ set linebreak
 set tw=500              " Linebreak on 500 characters
 
 set showtabline=1       " Show tabline when there are atleast two tab pages
+set spell               " Set spell checking on.
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" _STATUSLINE
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+hi clear SpellBad
+hi SpellBad     cterm=underline
+
+set splitbelow
+set splitright
+
+" END }}}
+" STATUSLINE {{{
 
 " Always display the statusline
 set laststatus=2
@@ -136,7 +122,7 @@ let g:lightline = {
     \ 'colorscheme': 'wombat',
     \ 'active': {
     \   'left': [   [ 'mode', 'paste' ],
-    \               [ 'buffer', 'gitbranch', 'readonly' ], [ 'filename', 'modified' ] ]
+    \               [ 'buffer', 'readonly', 'filename', 'modified' ] ]
     \ },
     \ 'component_function': {
     \   'buffer': 'GetBuffer',
@@ -150,12 +136,11 @@ function! GetBuffer()
 endfunction
 
 function! LightLineFilename()
-    return expand('%:p') !=# '' ? expand('%:p') : '[No Name]'
+    return expand('%') !=# '' ? expand('%') : '[No Name]'
 endfunction
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" _CURSORLINE
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" END }}}
+" CURSOR LINE {{{
 
 " Turn on CursorLine
 set cursorline
@@ -180,9 +165,8 @@ hi LineNr           cterm=NONE  ctermfg=DarkGrey  ctermbg=black   gui=NONE    gu
 hi CursorLineNr     cterm=bold  ctermfg=white     ctermbg=black   gui=NONE    guifg=#282822   guibg=#7F7F7F
 hi CursorLine       cterm=NONE  ctermfg=none      ctermbg=236     gui=none    guibg=NONE      guifg=NONE
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" _COLORSFONTS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" END }}}
+" COLORS FONTS {{{
 
 " Enable syntax highlighting
 syntax enable
@@ -198,9 +182,8 @@ set listchars=tab:\|\ ,trail:~,extends:>,precedes:<,nbsp:•,eol:¶
 hi NonText          cterm=none  ctermfg=244     ctermbg=none
 hi SpecialKey       cterm=none  ctermfg=244     ctermbg=none
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" _CUSTOMMAPPINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" END }}}
+" CUSTOM MAPPINGS {{{
 
 " Change the leader key from \ to ,
 let mapleader=","
@@ -230,9 +213,8 @@ set pastetoggle=<F2>
 " This lets you use w!! after you opened the file already, but forgot sudo.
 cmap w!! w !sudo tee % >/dev/null
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" _THINGSTODO
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" END }}}
+" THINGS TO DO {{{
 
 " TAG JUMPING:
 
@@ -282,4 +264,4 @@ cmap w!! w !sudo tee % >/dev/null
 " - :cc# to jump to error by number
 " - :cn and :cp to navigate forward and back
 
-
+" END }}}

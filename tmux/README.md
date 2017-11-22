@@ -17,6 +17,7 @@ Mapped prefix to `Ctrl-a`.
 | &   | Kill the current window |
 | n   | Change to the next window |
 | p   | Change to the previous window |
+| w   | List of all windows |
 | ,   | Rename window the current window ||
 
 ## Pane
