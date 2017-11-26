@@ -4,8 +4,7 @@
 "   \     /  |  | |  |  Y Y  \  |_> >  | \(  <_> )   /\  ___// /_/ |
 "    \___/   |__| |__|__|_|  /   __/|__|   \____/ \_/  \___  >____ |
 "                          \/|__|                          \/     \/
-
-
+"
 " PLUGINS {{{
 
 " Filetype must be 'on' before setting it 'off' otherwise it exits
@@ -95,8 +94,8 @@ set ignorecase          " Ignore case when searching.
 set smartcase           " Ignore case when search pattern is all lowercase.
 set incsearch           " Show search matches when you type.
 set noshowmode          " Don't show the mode information.
-set history=1000        " Remeber more commands and search history.
-set undolevels=1000     " Remeber more levels of undo.
+set history=1000        " Remember more commands and search history.
+set undolevels=1000     " Remember more levels of undo.
 set wildignore=*.swp
 set wildignorecase
 set title

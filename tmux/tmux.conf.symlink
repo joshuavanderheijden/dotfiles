@@ -1,6 +1,11 @@
-######################################################################
-# KEY CHANGES
-######################################################################
+# ___________                  _________                _____.__
+# \__    ___/____  __ _____  __\_   ___ \  ____   _____/ ____\__| ____
+#   |    | /     \|  |  \  \/  /    \  \/ /  _ \ /    \   __\|  |/ ___\
+#   |    ||  Y Y  \  |  />    <\     \___(  <_> )   |  \  |  |  / /_/  >
+#   |____||__|_|  /____//__/\_ \\______  /\____/|___|  /__|  |__\___  /
+#               \/            \/       \/            \/        /_____/
+#
+# KEY CHANGES {{{
 
 # Remap prefix from 'C-b' to 'C-a'
 unbind C-b
@@ -52,11 +57,10 @@ bind-key -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
 bind m set -g mouse on \; display 'Mouse: ON'
 bind M set -g mouse off \; display 'Mouse: OFF'
 
-######################################################################
-# SET OPTIONS
-######################################################################
+# END }}}
+# SET OPTIONS {{{
 
-# Addres vim mode switching delay
+# Address vim mode switching delay
 set -s escape-time 0
 
 # Don't rename windows automatically, rename window names using the , key
@@ -82,9 +86,8 @@ set-option -g base-index 1
 set-window-option -g pane-base-index 1
 set -g renumber-windows on
 
-######################################################################
-# DESIGN CHANGES 
-######################################################################
+# END }}}
+# DESIGN CHANGES {{{
 
 # Theme colors
 THEME=colour31
@@ -158,4 +161,6 @@ set -g status-left ' #S '
 set -g status-right-length 50
 set -g status-right-attr bold
 set -g status-right-fg colour232
-set -g status-right '#[bg=colour238] %V #[bg=colour241] %Y-%m-%d #[bg=colour245] %H:%M:%S '
+set -g status-right '#[bg=colour245] %V | %Y-%m-%d | %H:%M:%S '
+
+# END }}}
