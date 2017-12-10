@@ -48,5 +48,4 @@ Mapped prefix to `Ctrl-a`.
 
 | Key | Description |
 |:---:|:---|
-| m   | Turn mouse mode ON |
-| M   | Turn mouse mode OFF |
+| m   | Toggle mouse mode ON/OFF |
