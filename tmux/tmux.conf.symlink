@@ -163,6 +163,6 @@ set -g status-left ' #S '
 set -g status-right-length 50
 set -g status-right-attr bold
 set -g status-right-fg colour232
-set -g status-right '#[bg=colour245] %V | %Y-%m-%d | %H:%M:%S '
+set -g status-right ' #[bg=colour245] %V | %Y-%m-%d | %H:%M:%S | #(bash dotfiles/bin/show_battery_percentage.sh)'
 
 # END }}}
