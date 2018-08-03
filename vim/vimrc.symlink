@@ -20,6 +20,8 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+" Manual install plugins command: PluginInstall
+
 " SYNTAX: ADDITIONAL SYNTAXES THAT CAN BE USED
 Plug 'tpope/vim-git', { 'for': 'git' }
 
@@ -28,6 +30,11 @@ Plug 'tpope/vim-fugitive'
 
 " LIGHTLINE: A LIGHT AND CONFIGURABLE STATUS AND TABLINE PLUGIN FOR VIM
 Plug 'itchyny/lightline.vim'
+
+Plug 'junegunn/vim-easy-align'
+
+" NAVIGATOR: VIM TMUX NAVIGATOR
+Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
 
@@ -64,7 +71,7 @@ set wildmode=list:longest,full
 let g:netrw_banner=0        " disable annoying banner
 "let g:netrw_browse_split=4  " open in prior window
 "let g:netrw_altv=1          " open splits to the right
-"let g:netrw_listsytle=3     " tree view
+let g:netrw_listsytle=3     " tree view
 "let g:netrw_list_hide= netrw_gitignore#Hide()
 "let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
@@ -77,8 +84,8 @@ let g:netrw_banner=0        " disable annoying banner
 " OPTIONS {{{
 
 " It hides buffers instead of closing them. This means that you
-" can have unwritten changes to a file and open a newe file using
-" :e, without being force to write or undoe your changes first.
+" can have unwritten changes to a file and open a new file using
+" :e, without being force to write or undo your changes first.
 set hidden
 set showmatch           " Show the corresponding object.
 set expandtab           " Use spaces instead of tabs.
@@ -101,6 +108,7 @@ set wildignorecase
 set title
 set linebreak
 set tw=500              " Linebreak on 500 characters
+set noswapfile          " Disable swap files
 
 set showtabline=1       " Show tabline when there are atleast two tab pages
 set spell               " Set spell checking on.
@@ -110,6 +118,14 @@ hi SpellBad     cterm=underline
 
 set splitbelow
 set splitright
+
+" Navigate the vim splits with shortcuts
+if empty(glob("~/.vim/plugged/vim-tmux-navigator/"))
+    nnoremap <c-j> <c-w>j
+    nnoremap <c-k> <c-w>k
+    nnoremap <c-h> <c-w>h
+    nnoremap <c-l> <c-w>l
+endif
 
 " END }}}
 " STATUSLINE {{{
@@ -178,6 +194,7 @@ set encoding=utf8
 " Set list unprintable charachters
 set listchars=tab:\|\ ,trail:~,extends:>,precedes:<,nbsp:•,eol:¶
 
+hi Todo             cterm=none  ctermfg=9       ctermbg=11
 hi NonText          cterm=none  ctermfg=244     ctermbg=none
 hi SpecialKey       cterm=none  ctermfg=244     ctermbg=none
 

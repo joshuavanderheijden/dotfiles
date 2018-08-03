@@ -4,7 +4,6 @@
 #   |    ||  Y Y  \  |  />    <\     \___(  <_> )   |  \  |  |  / /_/  >
 #   |____||__|_|  /____//__/\_ \\______  /\____/|___|  /__|  |__\___  /
 #               \/            \/       \/            \/        /_____/
-#
 # KEY CHANGES {{{
 
 # Remap prefix from 'C-b' to 'C-a'
@@ -38,10 +37,10 @@ bind -r l resize-pane -R 1
 bind r source-file ~/.tmux.conf \; display "Config Reloaded!"
 
 # Switch panes using Alt-arrow without prefix
-bind -n M-left select-pane -L
-bind -n M-right select-pane -R
-bind -n M-up select-pane -U
-bind -n M-Down select-pane -D
+#bind -n j-left select-pane -L
+#bind -n M-right select-pane -R
+#bind -n j-up select-pane -U
+#bind -n M-Down select-pane -D
 
 # Smart pane switching with awareness of vim splits.
 # Source: https://github.com/christoomey/vim-tmux-navigator
@@ -78,10 +77,7 @@ set -g status-keys vi
 setw -g mode-keys vi
 
 # Mouse support
-set -g mouse on
-set -g mouse-resize-pane on
-set -g mouse-select-pane on
-set -g mouse-select-window on
+set -g mouse off
 
 # Set first window to index 1 to map to the keyboard layout
 set-option -g base-index 1
@@ -93,7 +89,7 @@ set -g renumber-windows on
 
 # Theme colors
 THEME=colour31
-BACK=colour233
+BACK=colour234
 
 # Set the default TERM
 #set -g default-terminal "xterm-256color"
@@ -146,11 +142,11 @@ set -g status-bg colour236
 setw -g window-status-attr none
 setw -g window-status-fg colour255
 setw -g window-status-bg colour236
-setw -g window-status-format "#I:#W"
+setw -g window-status-format "[#I]#W"
 setw -g window-status-current-attr bold
 setw -g window-status-current-fg colour255
 setw -g window-status-current-bg ${THEME}
-setw -g window-status-current-format " #I:#W "
+setw -g window-status-current-format " [#I]#W "
 
 # Status bar - Left
 set -g status-left-length 20

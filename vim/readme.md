@@ -16,6 +16,13 @@ Mapped Leader key to `,`. The abbrivation of the leader key will be noted as `L+
 |F2   | Switch to paste mode |
 |F3   | Display unprintable characters |
 
+## Standard key bindings
+
+| key | Description |
+|:---:|:---:|
+| Ctrl-O | Jump back to the previous location |
+| Ctrl-I | Jump forward to the next location |
+
 ## Links
 
 * [Link to a helpfull Vim Cheat sheet](https://vim.rtorr.com/ "Vim Cheat Sheet")
