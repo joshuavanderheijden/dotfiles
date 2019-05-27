@@ -107,12 +107,14 @@ set wildignore=*.swp
 set wildignorecase
 set title
 set linebreak
-set tw=500              " Linebreak on 500 characters
+set tw=120              " Linebreak on 100 characters
 set noswapfile          " Disable swap files
+
+"set colorcolumn=+1
+"hi colorcolumn           cterm=NONE  ctermfg=black  ctermbg=black   gui=NONE    guifg=#282822   guibg=#7F7F7F
 
 set showtabline=1       " Show tabline when there are atleast two tab pages
 set spell               " Set spell checking on.
-
 hi clear SpellBad
 hi SpellBad     cterm=underline
 
@@ -158,27 +160,28 @@ endfunction
 " CURSOR LINE {{{
 
 " Turn on CursorLine
-set cursorline
+"set cursorline
 
 " Highlight matching parenthesis
 hi MatchParen cterm=bold ctermfg=red ctermbg=none
 
 " Display line numbers
-set number relativenumber
+"set number relativenumber
+set number
 
 " Show CursorLine only in the selected window
-augroup CursorLine
-    au!
-    au VimEnter * setlocal cursorline
-    au WinEnter * setlocal cursorline
-    au BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
-augroup END
+"augroup CursorLine
+"    au!
+"    au VimEnter * setlocal cursorline
+"    au WinEnter * setlocal cursorline
+"    au BufWinEnter * setlocal cursorline
+"    au WinLeave * setlocal nocursorline
+"augroup END
 
 " Higlight Cursorline
-hi LineNr           cterm=NONE  ctermfg=DarkGrey  ctermbg=black   gui=NONE    guifg=#282822   guibg=#7F7F7F
-hi CursorLineNr     cterm=bold  ctermfg=white     ctermbg=black   gui=NONE    guifg=#282822   guibg=#7F7F7F
-hi CursorLine       cterm=NONE  ctermfg=none      ctermbg=236     gui=none    guibg=NONE      guifg=NONE
+"hi LineNr           cterm=NONE  ctermfg=DarkGrey  ctermbg=black   gui=NONE    guifg=#282822   guibg=#7F7F7F
+"hi CursorLineNr     cterm=bold  ctermfg=white     ctermbg=black   gui=NONE    guifg=#282822   guibg=#7F7F7F
+"hi CursorLine       cterm=NONE  ctermfg=none      ctermbg=236     gui=none    guibg=NONE      guifg=NONE
 
 " END }}}
 " COLORS FONTS {{{
@@ -195,7 +198,7 @@ set encoding=utf8
 set listchars=tab:\|\ ,trail:~,extends:>,precedes:<,nbsp:•,eol:¶
 
 hi Todo             cterm=none  ctermfg=9       ctermbg=11
-hi NonText          cterm=none  ctermfg=244     ctermbg=none
+hi NonText          cterm=none  ctermfg=none    ctermbg=none
 hi SpecialKey       cterm=none  ctermfg=244     ctermbg=none
 
 " END }}}
