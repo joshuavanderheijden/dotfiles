@@ -15,7 +15,7 @@ bind-key C-a send-prefix
 bind c new-window -c '#{pane_current_path}' 
 
 # Split panes horizontal or vertical
-bind \ split-window -h -c '#{pane_current_path}'
+bind \\ split-window -h -c '#{pane_current_path}'
 bind | split-window -h -c '#{pane_current_path}'
 bind - split-window -v -c '#{pane_current_path}'
 bind _ split-window -v -c '#{pane_current_path}'
@@ -50,7 +50,7 @@ bind-key -n C-h if-shell "$is_vim" "send-keys C-h"  "select-pane -L"
 bind-key -n C-j if-shell "$is_vim" "send-keys C-j"  "select-pane -D"
 bind-key -n C-k if-shell "$is_vim" "send-keys C-k"  "select-pane -U"
 bind-key -n C-l if-shell "$is_vim" "send-keys C-l"  "select-pane -R"
-bind-key -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
+#bind-key -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
 
 # Mouse mode
 bind m set -g mouse \; display-message 'Mouse-Mode: [#{?mouse,ON,OFF}]'
@@ -104,32 +104,21 @@ set -g window-style bg=${BACK}
 set -g window-active-style bg=${BACK}
 
 # Message
-set -g message-attr bold
-set -g message-bg ${THEME} 
-set -g message-fg colour232
-set -g message-command-fg blue
-set -g message-command-bg black
+set -g message-style bg=${THEME},fg=colour233,bold
+set -g message-command-style fg=blue,bg=black
 
 # Mode
-setw -g mode-attr bold
-setw -g mode-fg white
-setw -g mode-bg ${THEME}
+setw -g mode-style bg=${THEME},fg=white,bold
 
 # Pane
-set -g pane-border-fg colour236
-set -g pane-border-bg ${BACK}
-set -g pane-active-border-fg ${THEME}
-set -g pane-active-border-bg ${BACK}
+set -g pane-border-style bg=${BACK},fg=colour236
+set -g pane-active-border-style fg=${THEME},bg=${BACK}
 
 # Activity
-setw -g window-status-activity-attr none
-setw -g window-status-activity-bg colour237
-setw -g window-status-activity-fg colour109
+setw -g window-status-activity-style bg=colour237,fg=colour109,none
 
 # Bell
-setw -g window-status-bell-attr bold
-setw -g window-status-bell-fg colour255
-setw -g window-status-bell-bg colour1
+setw -g window-status-bell-style fg=colour255,bg=colour1,bold
 
 # Status bar - Settings
 set -g status on
@@ -139,26 +128,19 @@ set -g status-position bottom
 set -g status-bg colour236
 
 # Status bar - Centre
-setw -g window-status-attr none
-setw -g window-status-fg colour255
-setw -g window-status-bg colour236
+setw -g window-status-style fg=colour255,bg=colour236,none
 setw -g window-status-format "[#I]#W"
-setw -g window-status-current-attr bold
-setw -g window-status-current-fg colour255
-setw -g window-status-current-bg ${THEME}
+setw -g window-status-current-style fg=colour255,bg=${THEME},bold
 setw -g window-status-current-format " [#I]#W "
 
 # Status bar - Left
 set -g status-left-length 20
-set -g status-left-attr bold
-set -g status-left-fg colour232
-set -g status-left-bg colour255
+set -g status-left-style fg=colour232,bg=colour255,bold
 set -g status-left ' #S '
 
 # Status bar - Right
 set -g status-right-length 50
-set -g status-right-attr bold
-set -g status-right-fg colour232
+set -g status-right-style fg=colour232,bold
 set -g status-right ' #[bg=colour245] %V | %Y-%m-%d | %H:%M | #(bash dotfiles/bin/show_battery_percentage.sh)'
 
 # END }}}
